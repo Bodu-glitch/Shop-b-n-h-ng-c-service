@@ -9,6 +9,7 @@ export class StoreService {
   constructor() {
   }
 
+
   obj1 = {
     id: 1,
     productname: 'món đồ 1',
@@ -65,6 +66,7 @@ export class StoreService {
       return;
     }
 
+
     if (findIndex != -1) {// Nếu tồn tại (index != -1)
       this.cart[findIndex].quantity += 1;
       this.products[findIndex1].quantity -= 1;
@@ -86,5 +88,34 @@ export class StoreService {
       this.products[findIndex1].quantity -= 1;
     }
     console.log(this.products[findIndex1].quantity)
+    this.totalcost();
   }
+
+  deletecart(item: any) {
+    console.log(item);
+    let findIndex = this.cart.findIndex((element) => {
+      return element.id == item.id;
+    });
+    let findIndex1 = this.products.findIndex((element) => {
+      return element.id == item.id;
+    })
+    if (this.cart[findIndex].quantity == 1) {
+      this.cart.splice(findIndex, 1);
+      this.products[findIndex1].quantity += 1;
+    } else {
+      this.cart[findIndex].quantity -= 1;
+      this.products[findIndex1].quantity += 1;
+    }
+    this.totalcost();
+  }
+
+  totalcost() {
+    this.total = 0;
+    for (let item of this.cart) {
+      this.total += item.price * item.quantity;
+    }
+    return this.total;
+  }
+
+
 }

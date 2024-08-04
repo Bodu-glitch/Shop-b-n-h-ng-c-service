@@ -5,12 +5,10 @@
   }
 </div>
 
-<div class="cart-container">
-  @for (product of this.storeService.cart; track $index) {
-    <p>{{ product.productname }}</p>
-    <p>{{ product.quantity }}</p>
-    <p>{{ product.price }}</p>
-  }
-</div>
+<h1>Đây là giỏ hàng</h1>
+@for (product of this.storeService.cart; track $index) {
+  <app-cart [product]="product"></app-cart>
+}
 
+<app-totalcost [total]="storeService.total"></app-totalcost>
 
